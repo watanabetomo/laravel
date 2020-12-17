@@ -11,10 +11,10 @@
 <script src="js/html5shiv.js"></script>
 <script src="js/css3-mediaqueries.js"></script>
 <![endif]-->
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/sp.css">
-    <link rel="stylesheet" href="js/jquery.bxslider.css">
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="">
     <!--[if lt IE 9]>
 <link rel="stylesheet" href="css/old_ie.css">
 <![endif]-->
@@ -77,6 +77,7 @@
 <body>
     <div id="wrapper">
         <header>
+            {{print_r($productList)}}
             @if (isset($error))
             <p class="error">{{$error}}</p>
             @endif
@@ -123,16 +124,13 @@
                             amazon</a></span>
                 </li>
                 <li class="menu__single">
-                    <span><a href="cart.php">CART</a></span>
+                    <span><a href="/cart">CART</a></span>
                 </li>
                 <li class="menu__single">
                     <span><a href="{{route(Auth::check() ? 'logout' : 'login')}}">{{Auth::check() ? 'LOGOUT' : 'LOGIN'}}</a></span>
                 </li>
             </ul>
             <div class="postage">
-                @if (Auth::check())
-                    <p>ようこそ{{Auth::name()}}さん</p>
-                @endif
                 <a href="http://casamingo.gift/souryou.htm"><strong>送料１０００円</strong>１００００円以上お買い上げのお客様は<strong>送料無料</strong></a>
             </div>
         </header>
@@ -305,10 +303,10 @@
                 <div id="{{str_replace(' ', '', $category['name'])}}">
                     <h1><a href="">{{$category['name']}}</a></h1>
                     <div class="contents02">
-                        @foreach ($categoty['product'] as $product)
-                            <div class="contents02_{{$j + 1}}">
+                        @foreach ($category['product'] as $product)
+                            <div class="contents02_2">
                                 <h2><a href=""><img src="{{asset('img/' . $product['data']['img'])}}"></a></h2>
-                                <p><strong>{{$products['data']['name']}}<br></strong><br></p>
+                                <p><strong>{{$product['data']['name']}}<br></strong><br></p>
                                 <p><span>通常1～4日以内に発送。</span></p>
                                 <ul class="accordion">
                                     <li>
@@ -339,7 +337,7 @@
                                     </form>
                                 </div><!--/.qa-->
                             </div><!--/.contents02_4-->
-                        @endfor
+                        @endforeach
                     </div><!--/.contents02-->
                     <div class="info">
                         <p>大きなサイズは多少お時間を頂戴しております。</p>

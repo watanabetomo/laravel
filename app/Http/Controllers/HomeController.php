@@ -50,7 +50,7 @@ class HomeController extends Controller
                     'product' => $productData
                 ];
             }
-            return view('index', cpmpact('productList'));
+            return view('index', compact('productList'));
         } catch (PDOException $e) {
             $error = 'データベースに接続できませんでした。';
             return view('index', compact('error'));

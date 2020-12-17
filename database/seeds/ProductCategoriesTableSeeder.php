@@ -14,19 +14,19 @@ class ProductCategoriesTableSeeder extends Seeder
         DB::table('product_categories')->insert([
             [
                 'name' => 'Cheese cake',
-                'trun' => 1
+                'turn' => 1
             ],
             [
                 'name' => 'Chocorate cake',
-                'trun' => 2
+                'turn' => 2
             ],
             [
                 'name' => 'Short cake',
-                'trun' => 3
+                'turn' => 3
             ],
             [
                 'name' => 'Season cake',
-                'trun' => 4
+                'turn' => 4
             ],
         ]);
     }

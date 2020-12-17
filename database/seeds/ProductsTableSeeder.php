@@ -14,10 +14,20 @@ class ProductsTableSeeder extends Seeder
         DB::table('products')->insert([
             [
                 'name' => 'チョコレートケーキ',
+                'img' => '',
+                'delivery_info' => '',
+                'turn' => 1,
+                'create_user' => 1,
+                'update_user' => 1,
                 'product_category_id' => 2,
             ],
             [
                 'name' => 'チーズケーキ',
+                'img' => '',
+                'delivery_info' => '',
+                'turn' => 2,
+                'create_user' => 1,
+                'update_user' => 1,
                 'product_category_id' => 1,
             ],
         ]);
