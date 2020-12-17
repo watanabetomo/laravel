@@ -301,57 +301,36 @@
                     </div><!--/#modal-->
                 </div><!--/#contents-->
             </div><!--/#select-->
-            <?php foreach ($productCategories as $category) :?>
-                <div id="<?=str_replace(' ', '', $category['name'])?>">
-                    <h1><a href=""><?=h($category['name'])?></a></h1>
+            @foreach ($productList as $category)
+                <div id="{{str_replace(' ', '', $category['name'])}}">
+                    <h1><a href="">{{$category['name']}}</a></h1>
                     <div class="contents02">
-                        <?php
-                            try {
-                                $productModel = new ProductModel();
-                                $products = $productModel->fetchByCategoryId($category['id']);
-                            } catch (PDOException $e) {
-                                header('Location: error.php?error=database');
-                                exit;
-                            }
-                        ?>
-                        <?php for ($j = 0; $j < count($products); $j++) :?>
-                            <div class="contents02_<?=$j + 1?>">
-                                <h2><a href=""><img src="img/<?=h($products[$j]['img'])?>"></a></h2>
-                                <p><strong><?=h($products[$j]['name'])?><br></strong><br></p>
+                        @foreach ($categoty['product'] as $product)
+                            <div class="contents02_{{$j + 1}}">
+                                <h2><a href=""><img src="{{asset('img/' . $product['data']['img'])}}"></a></h2>
+                                <p><strong>{{$products['data']['name']}}<br></strong><br></p>
                                 <p><span>通常1～4日以内に発送。</span></p>
                                 <ul class="accordion">
                                     <li>
-                                        <?php
-                                            try {
-                                                $productDetailModel = new ProductDetailModel();
-                                                $productDetails = $productDetailModel->fetchByProductId($products[$j]['id']);
-                                            } catch (PDOException $e) {
-                                                header('Location: error.php?error=database');
-                                                exit;
-                                            }
-                                        ?>
-                                        <?php if (empty($productDetails)) :?>
+                                        @if (empty($product['detail']))
                                             <p>ただいま在庫がありません</p>
-                                        <?php else :?>
+                                        @else
                                             <p class="order">ご注文</p>
                                             <ul>
-                                                <?php foreach ($productDetails as $detail) :?>
+                                                @foreach ($product['detail'] as $detail)
                                                     <li>
                                                         <form method="post" action="cart.php">
-                                                            <input type="hidden" name="detail_id" value="<?=$detail['id']?>">
+                                                            <input type="hidden" name="detail_id" value="{{$detail['id']}}">
                                                             <input name="es_item_qty" value="1" type="hidden">
                                                             <input name="es_charset" value="sjis" type="hidden">
-                                                            <input name="es_item_id" value="<?=$detail['product_id']?>" type="hidden">
+                                                            <input name="es_item_id" value="{{$detail['product_id']}}" type="hidden">
                                                             <input name="es_shop_id" value="1482" type="hidden">
                                                             <input name="es_stock_attr_flag" value="0" type="hidden">
-                                                            <?php if ($detail['size'] != null and $detail['price'] != null) :?>
-                                                                <input name="add_to_cart"<?=$detail['actual_num'] != 0 ? ' class="hover"' : ''?> value="<?=h($detail['size'])?>cm ￥<?=number_format(h($detail['price']))?> <?=$detail['actual_num'] == 0 ? ' (売切れ)' : ''?>" type="submit"<?=$detail['actual_num'] == 0 ? ' disabled' : ''?>>
-                                                            <?php endif;?>
                                                         </form>
                                                     </li>
-                                                <?php endforeach;?>
+                                                @endforeach
                                             </ul>
-                                        <?php endif;?>
+                                        @endif
                                     </li>
                                 </ul><!--/.accordion-->
                                 <div class="qa">
@@ -360,13 +339,13 @@
                                     </form>
                                 </div><!--/.qa-->
                             </div><!--/.contents02_4-->
-                        <?php endfor; ?>
+                        @endfor
                     </div><!--/.contents02-->
                     <div class="info">
                         <p>大きなサイズは多少お時間を頂戴しております。</p>
                     </div>
                 </div><!-- .cakename -->
-            <?php endforeach; ?>
+            @endforeach
             <div class="info">
                 <p>数量限定につき完売の際はご容赦ください。</p>
             </div>
