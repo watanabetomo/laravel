@@ -11,10 +11,10 @@
 <script src="js/html5shiv.js"></script>
 <script src="js/css3-mediaqueries.js"></script>
 <![endif]-->
-    <link rel="stylesheet" href="">
-    <link rel="stylesheet" href="">
-    <link rel="stylesheet" href="">
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="{{asset('sass/reset.css')}}">
+    <link rel="stylesheet" href="{{asset('sass/style.css')}}">
+    <link rel="stylesheet" href="{{asset('sass/sp.css')}}">
+    <link rel="stylesheet" href="{{asset('sass/old_ie.css')}}">
     <!--[if lt IE 9]>
 <link rel="stylesheet" href="css/old_ie.css">
 <![endif]-->
@@ -77,7 +77,6 @@
 <body>
     <div id="wrapper">
         <header>
-            {{print_r($productList)}}
             @if (isset($error))
             <p class="error">{{$error}}</p>
             @endif
