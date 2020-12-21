@@ -3,14 +3,13 @@
 @section('content')
 <link rel="stylesheet" href="{{asset('css/admin_product.css')}}">
 <main>
-    {{print_r($productData)}}
-    <form action="/product_conf/{{$action}}/{{isset($productData['id']) ? $productData['id'] : ''}}" method="post">
+    <form action="/products/conf{{preg_match('/edit$/', url()->previous()) ? '/' . $productData['id'] : '/0'}}" method="post">
         @csrf
         @if (isset($error))
             <p class="error">{{$error}}</p>
         @endif
         <table border="1">
-            @if ($action == 'edit')
+            @if (preg_match('/edit$/', url()->previous()))
                 <tr>
                     <th>
                         ID
@@ -89,7 +88,7 @@
         </table>
         <p class="submit-button"><input type="submit" name="send" class="btn" value="確認画面へ"></p>
     </form>
-    @if ($action == 'edit')
+    @if (preg_match('/edit$/', url()->previous()))
         <form id="upload" action="/product_edit/edit/upload/{id}" method="post" enctype="multipart/form-data" onsubmit="return confirm('本当に画像をアップロードしますか？')">
             @csrf
             <table border="1" style="margin-top: 70px;">

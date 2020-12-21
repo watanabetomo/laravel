@@ -5,7 +5,7 @@
 <main>
     <p class="error">{{isset($error) ? $error : ''}}</p>
     <table border="1">
-        @if ($action == 'edit')
+        @if ($id != 0)
             <tr>
                 <th>ID</th>
                 <td colspan="3">{{$input['id']}}</td>
@@ -41,8 +41,11 @@
             </tr>
         @endfor
     </table>
-    <form action="/product_done/{{$action}}{{isset($input['id']) ? '/' . $input['id'] : ''}}" method="post">
+    <form action="/products{{$id != 0 ? '/' . $id : ''}}" method="post">
         @csrf
+        @if ($id != 0)
+            <input type="hidden" name="_method" value="PUT">
+        @endif
         <input type="hidden" name="name" value="{{$input['name']}}">
         <input type="hidden" name="product_category_id" value="{{$input['category_id']}}">
         <input type="hidden" name="delivery_info" value="{{$input['delivery_info']}}">
@@ -51,9 +54,9 @@
             <input type="hidden" name="details[{{$i}}][size]" value="{{$input['details'][$i]['size']}}">
             <input type="hidden" name="details[{{$i}}][price]" value="{{$input['details'][$i]['price']}}">
         @endfor
-        <p class="submit-button register-btn"><input type="submit" name="register" class="btn" value="{{($action == 'edit' ? '更新' : '登録')}}完了する"></p>
+        <p class="submit-button register-btn"><input type="submit" name="register" class="btn" value="{{($id != 0 ? '更新' : '登録')}}完了する"></p>
     </form>
-    <form action="/product_edit/{{$action}}{{isset($input['id']) ? '/' . $input['id'] : ''}}" method="post">
+    <form action="/products/fix/{{$id}}" method="post">
         @csrf
         <input type="hidden" name="name" value="{{$input['name']}}">
         <input type="hidden" name="product_category_id" value="{{$input['category_id']}}">

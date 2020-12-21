@@ -11,14 +11,14 @@
     <div class="container">
         <header>
             <div>
-                Session<p class="greeting">ログイン名{{session()->get('name')}}</p>
+                <p class="greeting">ログイン名{{Auth::user()->name}}</p>
                 <p class="logout"><a href="/logout">ログアウトする</a></p>
             </div>
             <div class="first-header">
                 <nav class="navbar navbar-expand-sm navbar-dark mb-3 first">
                     <ul class="navbar-nav">
                         <li class="nav-item active"><a class="nav-link" href="/top">TOP</a></li>
-                        <li class="nav-item active"><a class="nav-link" href="/product_list">商品管理</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="/products">商品管理</a></li>
                         <li class="nav-item active"><a class="nav-link" href="/purchase_list">注文情報</a></li>
                     </ul>
                 </nav>

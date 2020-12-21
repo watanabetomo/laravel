@@ -17,4 +17,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/top', function(){
+    return view('top');
+});
+Route::get('products/search', 'ProductController@search');
+Route::get('products/sort/{column}', 'ProductController@sort');
+Route::post('products/conf/{id}', 'ProductController@conf');
+Route::post('products/fix/{id}', 'ProductController@fix');
 Route::resource('products', 'ProductController');

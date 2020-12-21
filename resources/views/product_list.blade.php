@@ -1,17 +1,16 @@
 @extends('layouts.admin')
 
 @section('content')
-<link rel="stylesheet" href="{{asset('css/admin_product.css')}}">
+<link rel="stylesheet" href="{{asset('/css/admin_product.css')}}">
 <main>
     <p class="error">{{isset($error) ? $error : ''}}</p>
-    <form action="/product_list/search" method="get">
-        @csrf
+    <form action="/products/search" method="get">
         <p class="search"><input type="text" name="keyword"> <input type="submit" value="絞り込む"> <input type="submit" name="all" value="すべて表示"></p>
     </form>
     <table border="1" class="main-table">
         <tr>
             <th>
-                <form action="/product_list/sort/id" method="get">
+                <form action="/products/sort/id" method="get">
                     @csrf
                     <button type="submit" name="order" class="icon" value="asc">▲</button>
                     <p class="sorted">ID</p>
@@ -19,7 +18,7 @@
                 </form>
             </th>
             <th>
-                <form action="/product_list/sort/name" method="get">
+                <form action="/products/sort/name" method="get">
                     @csrf
                     <button type="submit" name="order" class="icon" value="asc">▲</button>
                     <p class="sorted">商品名</p>
@@ -33,7 +32,7 @@
                 登録日時
             </th>
             <th>
-                <form action="/product_list/sort/updated_at" method="get">
+                <form action="/products/sort/updated_at" method="get">
                     @csrf
                     <button type="submit" name="order" class="icon" value="asc">▲</button>
                     <p class="sorted">更新日時</p>
@@ -41,10 +40,10 @@
                 </form>
             </th>
             <th>
-                <a href="/product_edit/new" role="button" class="btn btn-sm">新規登録</a>
+                <a href="/products/create" role="button" class="btn btn-sm">新規登録</a>
             </th>
         </tr>
-        @if (isset($products))
+        @if (!empty($products))
             @foreach ($products as $product)
                 <tr>
                     <td>
@@ -54,7 +53,6 @@
                         {{$product['name']}}
                     </td>
                     <td>
-                        {{isset($product['img']) ? '<img src="{{asset('img/' . $product['img'])}}" alt="' . $product['img'] . '">' : '未登録'}}
                     </td>
                     <td>
                         {{(new DateTime($product['created_at']))->format('Y-m-d H:i:s')}}
@@ -64,9 +62,10 @@
                     </td>
                     <td>
                         <p>
-                            <a href="/product_edit/edit/{{$product['id']}}" class="btn btn-sm" style="margin-top:20px;">編集</a>
-                            <form action="/product_list/delete/{{$product['id']}}" method="post" onsubmit="return confirm('本当に削除しますか？')">
+                            <a href="/products/{{$product['id']}}/edit" class="btn btn-sm" style="margin-top:20px;">編集</a>
+                            <form action="/products/{{$product['id']}}" method="post" onsubmit="return confirm('本当に削除しますか？')">
                                 @csrf
+                                <input type="hidden" name="_method" value="DELETE">
                                 <input type="submit" class="btn btn-sm" name="delete" value="削除">
                             </form>
                         </p>
